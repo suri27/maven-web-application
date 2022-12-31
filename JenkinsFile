@@ -9,13 +9,13 @@ pipeline{
         // Discard Old Builds
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
     }
-    triggers{
+    //triggers{
         //Poll SCM
         //pollSCM('* * * * *')
         //BuildPeriodically
         // cron('* * * * *')
         // githubPush()
-    }
+    //}
     stages{
         stage("getting the code from scm"){
             steps{
