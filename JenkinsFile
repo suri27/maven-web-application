@@ -1,0 +1,46 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven'
+    }
+    options{
+        //ADD Timestamps to the job
+        timestamps()
+        // Discard Old Builds
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
+    }
+    triggers{
+        //Poll SCM
+        //pollSCM('* * * * *')
+        //BuildPeriodically
+        // cron('* * * * *')
+        // githubPush()
+    }
+    stages{
+        stage("getting the code from scm"){
+            steps{
+                git branch: 'main', credentialsId: 'c6e1162e-3d24-4399-98af-7d7c46d66100', url: 'https://github.com/motikalasuribabu/project.git'
+            }
+        }
+        stage("build by using maven"){
+            steps{
+                sh "mvn clean package"
+                sleep 10
+            }
+        }
+        /*stage("deploy into the tomcat server"){
+            steps{
+            sshagent(['36b19afe-16af-4918-ab70-f8b33b58df2d']) {
+                sh "scp -o StrictHostKeyChecking=no target/mvn-project.war ec2-user@3.110.224.168:/opt/apache-tomcat-10.0.27/webapps/"
+            }
+            }
+        }
+    }
+    post{
+        success{
+            emailext body: 'build is successful', recipientProviders: [developers()], subject: 'Build is success', to: 'suribabumotikala03@gmail.com'
+        }
+    }*/
+}
+
+
