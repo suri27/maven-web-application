@@ -19,7 +19,7 @@ pipeline{
     stages{
         stage("getting the code from scm"){
             steps{
-                git branch: 'main', credentialsId: 'c6e1162e-3d24-4399-98af-7d7c46d66100', url: 'https://github.com/motikalasuribabu/project.git'
+                git branch: 'main', credentialsId: 'c6e1162e-3d24-4399-98af-7d7c46d66100', url: 'https://github.com/suri27/maven-web-application.git'
             }
         }
         stage("build by using maven"){
